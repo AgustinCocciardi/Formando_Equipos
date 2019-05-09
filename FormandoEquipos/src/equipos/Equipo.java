@@ -74,7 +74,8 @@ public class Equipo {
 
 				if (j + 1 >= this.cantIntegrantes) {
 					afinidadCalculada = calcularAfinidad(integrantes, i);
-					if (afinidadCalculada > afinidadMaxima) {
+					if (afinidadCalculada > afinidadMaxima || (afinidadCalculada == afinidadMaxima
+							&& respuestasDeAfinidad.length() > this.equipoAfin.getRespuestas().length())) {
 						afinidadMaxima = afinidadCalculada;
 						this.equipoAfin.setAfinidad(afinidadCalculada);
 						this.equipoAfin.setRespuestas(respuestasDeAfinidad);
@@ -85,7 +86,6 @@ public class Equipo {
 						primerFalsoHallado = false;
 					}
 				}
-
 				j++;
 			}
 		}

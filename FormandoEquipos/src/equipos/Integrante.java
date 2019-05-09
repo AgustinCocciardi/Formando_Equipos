@@ -12,5 +12,4 @@ public class Integrante {
 		return this.respuestas.substring(0, numeroRespuestas);
 	}
 	
-	
 }
