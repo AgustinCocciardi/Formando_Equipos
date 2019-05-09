@@ -17,10 +17,12 @@ public class Equipo {
 	public Equipo(Scanner sc) {
 		this.cantPreguntas = sc.nextInt();
 		this.cantIntegrantes = sc.nextInt();
+		sc.nextLine();
 		this.integrantes = new Integrante[cantIntegrantes];
 		for (int i = 0; i < this.cantIntegrantes; i++) {
 			this.integrantes[i] = new Integrante(sc.nextLine());
 		}
+		this.equipoAfin = new EquipoAfin();
 	}
 
 	public void grabarEnElArchivo(PrintWriter pw) {
@@ -57,20 +59,22 @@ public class Equipo {
 					evaluados[primerFalso] = true;
 					afinidadTomada = true;
 				}
-				if (evaluados[j] == false) {
-					if (this.integrantes[j].letraEnPosicion(i).equals(palabra)) {
-						integrantes++;
-						integrantesFalsos--;
-						evaluados[j] = true;
-					}
-				} else {
-					if (primerFalsoHallado == false) {
-						primerFalso = j;
-						primerFalsoHallado = true;
+				if( j < this.cantIntegrantes) {
+					if (evaluados[j] == false) {
+						if (this.integrantes[j].letraEnPosicion(i).equals(palabra)) {
+							integrantes++;
+							integrantesFalsos--;
+							evaluados[j] = true;
+						} else {
+							if (primerFalsoHallado == false) {
+								primerFalso = j;
+								primerFalsoHallado = true;
+							}
+						}
 					}
 				}
-
-				if (j + 1 == this.cantIntegrantes) {
+				
+				if (j + 1 >= this.cantIntegrantes) {
 					afinidadCalculada = calcularAfinidad(integrantes, i);
 					if (afinidadCalculada > afinidadMaxima) {
 						afinidadMaxima = afinidadCalculada;
@@ -79,10 +83,12 @@ public class Equipo {
 					}
 					if (integrantesFalsos > 0) {
 						j = 0;
-						afinidadTomada = true;
+						afinidadTomada = false;
 						primerFalsoHallado = false;
 					}
 				}
+
+				j++;
 			}
 		}
 	}
