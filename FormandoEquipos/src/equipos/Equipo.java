@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Equipo {
@@ -38,30 +39,27 @@ public class Equipo {
 	private void calcularAfinidadMaximaYFormarEquipo() {
 		int afinidadCalculada;
 		int afinidadMaxima = 0;
-		boolean[] evaluados = new boolean[this.cantIntegrantes];
 		for (int i = 1; i < this.cantPreguntas; i++) {
-			for (int k = 0; k < this.cantIntegrantes; k++) {
-				evaluados[k] = false;
-			}
+			boolean[] evaluados = new boolean[this.cantIntegrantes];
 			int j = 0;
 			int integrantes = 0;
 			int integrantesFalsos = this.cantIntegrantes;
 			int primerFalso = 0;
 			boolean afinidadTomada = false;
 			boolean primerFalsoHallado = false;
-			String palabra = "";
+			String respuestasDeAfinidad = "";
 			while (integrantesFalsos > 0 && j < this.cantIntegrantes) {
 				if (afinidadTomada == false) {
 					j = primerFalso + 1;
 					integrantes = 1;
-					palabra = this.integrantes[primerFalso].letraEnPosicion(i);
+					respuestasDeAfinidad = this.integrantes[primerFalso].respuestas(i);
 					integrantesFalsos--;
 					evaluados[primerFalso] = true;
 					afinidadTomada = true;
 				}
-				if( j < this.cantIntegrantes) {
+				if (j < this.cantIntegrantes) {
 					if (evaluados[j] == false) {
-						if (this.integrantes[j].letraEnPosicion(i).equals(palabra)) {
+						if (this.integrantes[j].respuestas(i).equals(respuestasDeAfinidad)) {
 							integrantes++;
 							integrantesFalsos--;
 							evaluados[j] = true;
@@ -73,13 +71,13 @@ public class Equipo {
 						}
 					}
 				}
-				
+
 				if (j + 1 >= this.cantIntegrantes) {
 					afinidadCalculada = calcularAfinidad(integrantes, i);
 					if (afinidadCalculada > afinidadMaxima) {
 						afinidadMaxima = afinidadCalculada;
 						this.equipoAfin.setAfinidad(afinidadCalculada);
-						this.equipoAfin.setRespuestas(palabra);
+						this.equipoAfin.setRespuestas(respuestasDeAfinidad);
 					}
 					if (integrantesFalsos > 0) {
 						j = 0;

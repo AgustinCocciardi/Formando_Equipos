@@ -8,8 +8,8 @@ public class Integrante {
 		this.respuestas = respuestas;
 	}
 	
-	public String letraEnPosicion(int posicion){
-		return this.respuestas.substring(0, posicion);
+	public String respuestas(int numeroRespuestas){
+		return this.respuestas.substring(0, numeroRespuestas);
 	}
 	
 	

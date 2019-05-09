@@ -5,11 +5,6 @@ public class EquipoAfin {
 	private int afinidad;
 	private String respuestas;
 	
-	public EquipoAfin() {
-		this.afinidad = 0;
-		this.respuestas = "";
-	}
-	
 	public void setAfinidad(int afinidad) {
 		this.afinidad = afinidad;
 	}
